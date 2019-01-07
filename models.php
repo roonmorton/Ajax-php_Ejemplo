@@ -9,7 +9,8 @@ $v_Marcas = [
 
 //Array simula tabla Modelos
 $v_Modelo = [
-    1 => [
+    1 => 
+    [
         [
             "id" => 1,
             "nombre" => "Tercel"
@@ -27,7 +28,8 @@ $v_Modelo = [
             "nombre" => "Hilux"
         ]
     ],
-    2 => [
+    2 => 
+    [
         [
             "id" => 1,
             "nombre" => "Acord"

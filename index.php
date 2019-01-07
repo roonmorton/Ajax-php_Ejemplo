@@ -1,5 +1,6 @@
 <?php 
 include_once("models.php");
+//phpinfo(); 
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,9 +17,14 @@ include_once("models.php");
                     Ejemplo simple de cargar control Select con Ajax
                 </h2>
 
-                <form>
+                <form id="form1">
+                   <div class="field">
+                            <label for="txtDescripcion">Descripción</label>
+                            <input type="text" name="txtDescripcion" id="txtDescripcion">
+                   </div>
                     <div class="field">
                         <label class="label">Marca</label>
+                        
                         <div class="control">
                             <div class="select">
                                 <select id="sMarca">
@@ -43,6 +49,9 @@ include_once("models.php");
                             </div>
                         </div>
                     </div>
+                    <div class="field">
+                        <input type="button" id="btnSubmit" value="Enviar">
+                    </div>
                 </form>
             </div>
         </section>
@@ -51,6 +60,30 @@ include_once("models.php");
             $(document).ready(function(){ //Utilizando JQuery para esperar que el documento html se cargue
 
                 //Toda instruccion que utilizara elementos de documento estan disponibles despues de que este cargado el documento
+                
+                $("#btnSubmit").click(function(e){
+                    e.preventDefault();
+                    
+                    $.ajax({ // Definicion de uso de AJAX con JQuery
+                        url: "json.php?peticion=json", // Propiedad que se asigna url donde carga JSON
+                        dataType: "json", // Propiedad se asigna tipo de petición AJAX que se realizara
+                        type: "post",
+                        //data: JSON.stringify($("#form1").serialize()),
+                        data: JSON.stringify({ 
+                            descripcion: $("#txtDescripcion").val(), 
+                            idMarca: $("#sMarca").val(),
+                            idModelo: $("#sModelo").val()
+                        }),
+                        error: function(e){ // Propiedad si surge algun error durante la peticion
+                            console.log(e);
+                            alert("Error en la petición 1... "  );
+                        }
+                    }).done(function(result){ // Finalizado correctamente 
+                       console.log(result);
+                    });
+                    
+                    
+                });
 
                 $("#sMarca").change(function(){ // Se habilita evento reaccion a cambio en el <select> id smarca
 
